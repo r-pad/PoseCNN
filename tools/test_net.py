@@ -59,6 +59,10 @@ def parse_args():
     parser.add_argument('--background', dest='background_name',
                         help='name of the background file',
                         default=None, type=str)
+    parser.add_argument('--start_index', dest='start_index',
+                        help='start index in dataset',
+                        default=0, type=int)
+
 
     if len(sys.argv) == 1:
         parser.print_help()
@@ -114,7 +118,8 @@ if __name__ == '__main__':
 
     if cfg.TEST.SINGLE_FRAME:
         if cfg.TEST.SEGMENTATION:
-            test_net_single_frame(sess, network, imdb, weights_filename, args.cad_name)
+            test_net_single_frame(sess, network, imdb, weights_filename, args.cad_name, 
+                                  start_index = args.start_index)
         else:
             test_net_detection(sess, network, imdb, weights_filename)
     else:

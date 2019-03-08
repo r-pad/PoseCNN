@@ -6,6 +6,8 @@
 # --------------------------------------------------------
 
 """Test a FCN on an imdb (image database)."""
+import matplotlib
+matplotlib.use('Agg')
 
 from fcn.config import cfg, get_output_dir
 import argparse
@@ -33,6 +35,8 @@ from normals import gpu_normals
 # from kinect_fusion import kfusion
 # from pose_refinement import refiner
 # from mpl_toolkits.mplot3d import Axes3D
+
+import sys
 
 def _get_image_blob(im, im_depth, meta_data):
     """Converts an image into a network input.
@@ -373,7 +377,9 @@ def vis_segmentations(im, im_depth, labels, labels_gt, colors):
     ax.set_zlabel('Z')
     set_axes_equal(ax)
     '''
+    plt.savefig(sys._getframe().f_code.co_name + '.png')
     plt.show()
+    plt.gcf().clear()
 
 ##################
 # test video
@@ -809,8 +815,9 @@ def vis_segmentations_vertmaps(im, im_depth, im_labels, im_labels_gt, colors, ce
             ax.set_xlim([0, im.shape[1]])
             ax.set_ylim([im.shape[0], 0])
 
+    plt.savefig(sys._getframe().f_code.co_name + '.png')
     plt.show()
-
+    plt.gcf().clear()
 
 def vis_segmentations_vertmaps_detection(im, im_depth, im_labels, colors, center_map, 
   labels, rois, poses, poses_new, intrinsic_matrix, num_classes, classes, points):
@@ -928,9 +935,9 @@ def vis_segmentations_vertmaps_detection(im, im_depth, im_labels, colors, center
             ax.set_xlim([0, im.shape[1]])
             ax.set_ylim([im.shape[0], 0])
 
+    plt.savefig(sys._getframe().f_code.co_name + '.png')
     plt.show()
-
-
+    plt.gcf().clear()
 
 def vis_segmentations_vertmaps_3d(im, im_depth, im_labels, im_labels_gt, colors, vertmap, vertmap_target,
   labels, labels_gt, rois_rgb, poses_rgb, rois, poses, poses_icp, intrinsic_matrix, vertmap_gt, poses_gt, cls_indexes, num_classes):
@@ -1109,8 +1116,9 @@ def vis_segmentations_vertmaps_3d(im, im_depth, im_labels, im_labels_gt, colors,
             ax.set_xlim([0, im.shape[1]])
             ax.set_ylim([im.shape[0], 0])
 
+    plt.savefig(sys._getframe().f_code.co_name + '.png')
     plt.show()
-
+    plt.gcf().clear()
 
 def _get_bb2D(extent, pose, intrinsic_matrix):
     bb3d = np.zeros((3, 8), dtype=np.float32)
@@ -1151,7 +1159,7 @@ def _get_bb2D(extent, pose, intrinsic_matrix):
 ###################
 # test single frame
 ###################
-def test_net_single_frame(sess, net, imdb, weights_filename, model_filename):
+def test_net_single_frame(sess, net, imdb, weights_filename, model_filename, start_index = 0):
 
     output_dir = get_output_dir(imdb, weights_filename)
     if not os.path.exists(output_dir):
@@ -1190,7 +1198,7 @@ def test_net_single_frame(sess, net, imdb, weights_filename, model_filename):
         perm = np.random.permutation(np.arange(num_images))
         # perm = xrange(num_images)
     else:
-        perm = xrange(num_images)
+        perm = xrange(start_index, num_images)
 
     if cfg.TEST.SYNTHETIC:
         # perm = np.random.permutation(np.arange(cfg.TRAIN.SYNNUM))
@@ -1824,8 +1832,9 @@ def vis_detections(im, im_depth, rois, poses, cls_indexes, intrinsic_matrix, pos
         ax.set_xlim([0, im.shape[1]])
         ax.set_ylim([im.shape[0], 0])
 
+    plt.savefig(sys._getframe().f_code.co_name + '.png')
     plt.show()
-
+    plt.gcf().clear()
 
 ###################
 # test image sets

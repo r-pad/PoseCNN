@@ -87,14 +87,14 @@ if __name__ == '__main__':
 
     # construct the filenames
     root = 'data/demo_images/'
-    num = 5
+    num = 1
     rgb_filenames = []
     depth_filenames = []
     for i in xrange(num):
-        filename = root + '{:06d}-color.png'.format(i+1)
+        filename = root + 'test-color.png'.format(i+1)
         print filename
         rgb_filenames.append(filename)
-        filename = root + '{:06d}-depth.png'.format(i+1)
+        filename = root + 'test-depth.png'.format(i+1)
         print filename
         depth_filenames.append(filename)
 

@@ -70,8 +70,8 @@ link_libraries(${Pangolin_LIBRARIES}
                ${OpenCV_LIBS}
                ${NLOPT_LIBRARIES}
                ${PCL_LIBRARIES}
-               boost_python
-               boost_numpy
+               boost_python27
+               boost_numpy27
                assimp
                util)
 
